@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>一贯元宵节活动</title>
+	<meta name="viewport" content="width=750, user-scalable=no" >
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="css/tour.css">
+    <link rel="stylesheet" type="text/css" href="css/reveal.css">
+	<style>
+		@-ms-viewport { width:device-width; }
+		@media only screen and (min-device-width:800px) { html { overflow:hidden; } }
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+	</style>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/jquery.event.move.js"></script>
+    <script src="js/jquery.event.swipe.js"></script>
+    <script src="tour.js"></script>
+    <script src="js/xingzuo.js"></script>
+</head>
+<body>
+<audio id="bg_audio" style="display: none;" autoplay="autoplay" loop="loop">
+    <source src="bg.mp3"/>
+</audio>
+<div id="loading">
+    <img src="images/loading.gif" id="loading-img">
+</div>
+<div id="tutorial"></div>
+
+<!-- 生肖详情 -->
+<div id="myElementId" class="outPopWindow">
+    <div id="xingzuo" class="width-height-100" style="position:relative">
+        <p class="xingzuo-title" hidden></p>
+        <img class="xingzuo-image" src="">
+        <div class="future-div" style="width:100%">
+            <div class="future-button">
+                <p id="future-button-text">生肖解析</p>
+            </div>
+        </div>
+        <img src="images/Return.png" class="return-index" id="back-index">
+    </div>
+</div>
+
+<!-- 生肖解析 -->
+<div id="xingzuo-content" ><!-- class="outPopWindow" -->
+    <div id="content" class="width-height-100" style="position:relative">
+        <div class='future-to-index'><img src='images/lucky.png'></div>
+        <a onclick="closePopup('xingzuo-content')" class="return-index"><img src="images/Return.png"></a>
+        <img class='app_detail' src='images/logo_app.png'>
+        <div id="carousel">
+            <img src='' class='Chinese_Zodiac'>
+            <!-- 生肖由来 -->
+            <div class='banner Zodiac_form' style='width:580px;position:absolute;top:150px;height:430px;'>
+                <ul style='min-height:430px;margin:0;padding:0;'>
+                        <li style='width:580px;min-height:430px;'>
+                            <div id="tab_1" class='content-style' style='top:0;'>
+                                <div class='tab_title title1'>属<span class='Zodiac_Name'></span>的人2017年的运程</div>
+                                <div class='list-block'>
+                                    <span class='list_title'>属<span class='Zodiac_Name'></span>性格特点</span>
+                                    <span class='list_content feature'></span>
+                                </div>
+                                <div class='list-block'>
+                                    <span class='list_title'>财富运势</span>
+                                    <span class='list_content fate_1'></span>
+                                </div>
+                            </div> 
+                        </li>
+                        <li style='width:580px;min-height:430px;'> 
+                            <div id='tab_2' class='content-style' style='top:0;'>
+                                <div class='tab_title title1' style='margin-bottom:20px;'>属<span class='Zodiac_Name'></span>的人2017年的运程</div>
+                                <div class='list-block'>
+                                    <span class='list_content'></span>
+                                </div>
+                            </div> 
+                        </li>
+                </ul>
+                                      
+            </div>
+            <!-- 生肖运势 -->
+            <div class='banner Zodiac_fate' style='width:580px;position:absolute;top:150px;height:430px;'>
+                    <ul style='min-height:430px;margin:0;padding:0;'>
+                        <li style='width:580px;min-height:430px;'>
+                            <div id="tab_3" class='content-style' style='top:0;'>
+                                <div class='tab_title title1'>属<span class='Zodiac_Name'></span>的人2017年的运程</div>
+                                <div class='list-block'>
+                                    <span class='list_title'>理财建议</span>
+                                    <span class='list_content'></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li style='width:580px;min-height:430px;'>
+                            <div id="tab_4" class='content-style' style='top:0;'>
+                                <div class='tab_title title1'>属<span class='Zodiac_Name'></span>的人2017年的运程</div>
+                                <div class='list-block'>
+                                    <span class='list_title' style='margin:0;'></span>
+                                    <span class='list_content'>
+                                        <span class='manage_2'></span>
+                                        <span class='manage_3'></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+            </div>
+            
+            <!-- 底部 -->
+            <div class='list_festival'>
+                <span class='pull_left'>2017.02.11</span>
+                <span class='pull_right'>元宵节</span>
+            </div>
+            <div class='list_bottom'>
+                <div class='btn_style btn_left'>生肖运势</div>
+                <span class='vertical'>|</span>
+                <div class='btn_style btn_right'>理财建议</div>
+            </div>   
+        </div>
+    </div>
+</div>
+<!-- 获得奖励 -->
+<div id="my-experience" class="outPopWindow-1">
+    <div id="experience">
+        <div class='money-title'>恭喜您获得</div>
+        <div class='another-money-title'><span class="experience-money"></span><span class='money_unit'>元</span></div>
+        <div class='third-money-title'>京东E卡或等值奖金</div>
+        <div class='receive_condition'>领奖条件：现在就注册“一贯”账户，首次投资“一贯”任意一款产品不低于1000元且留存超过7个自然日，即可获得30元京东E卡或等值奖金。</div>
+        <button type='button' class='money-btn' id="go-register">马上注册一贯吧</button>
+    </div>
+</div>
+<!-- 去推荐 -->
+<div id='invite' class='width-height-100 outPopWindow-1'>
+
+    <div class='invite-title'>邀请好友</div>
+    <div class='another-invite-title'>立得京东E卡</div>
+    <p style="text-align: justify;">将本活动分享给好友，当TA成功注册并投资“一贯”的任意一款产品，首次投资金额不低于1000元且持有超过7个自然日，即可获得10元京东E卡或等值奖金，多邀多得，最多可得100张！还在等什么？</p>
+    <button type='button' class='invite-btn' onclick="showSharePopup();">去推荐</button>
+    <h1>在法律允许范围内“一贯”平台保留对本活动的解释权。</h1>
+</div>
+<!-- 未参与活动 -->
+<div id="newbee" class="activity width-height-100 outPopWindow-1">
+    <div id="no-acitvity">
+        <img src="images/window_close.png" onclick="closePopup('newbee');" class='close'/>
+        <span class='activity-title margin-top'>你还未参与活动</span>
+        <span class='acitvity-tips'>现在就参加活动，查看您的生肖运势，</span>
+        <span class='acitvity-tips'>中奖率100%！</span>
+    </div>
+</div>
+
+
+<div id="see-rule" class="activity width-height-100 outPopWindow-1">
+    <div class='see-rule-cover'></div>
+    <div id="rule-content">
+        <span class='rule-title'>活动规则</span>
+        <span class='rule-tips'>活动时间：2017年2月8日起至2017年2月22日结束。</span>
+        <span class='rule-tips'>活动规则：</span>
+        <span class="rule-tips">1．用户在活动首页的花灯集市中选择自己的生肖花灯，点击“生肖解析”查看生肖性格、本年的财富运势及一贯给您的理财建议；</span>
+        <span class="rule-tips">2．通过点击“寻找幸运”，返回花灯集市首页，寻找并点击没有生肖图案的幸运孔明灯，首次输入手机号可随机获得京东E卡或等值奖金，获奖后的奖金提取规则详见获奖页；</span>
+        <span class="rule-tips">小贯提醒：</span>
+        <span class="rule-tips">1．参与活动填写的手机号码务必与注册一贯或即将注册的手机号保持一致，填写后无法修改，输入错误将无法获得相应奖励。</span>
+        <span class="rule-tips">2．京东E卡或等值奖金发放日期为2017年3月22日前。（奖金将直接发放至所注册的一贯账户，京东E卡则通过短信的形式发送至注册手机号）</span>
+        <span class="rule-tips">3．获奖客户需在活动截止日（2017年2月22日）前进行投资。</span>
+        <span class="rule-tips">4．通过恶意程序等非正常手段获取的礼品，一贯不予承认。</span>
+        <span class="rule-tips center-style">在法律允许范围内“一贯”保留对本活动的最终解释权。</span>
+        <span class="rule-tips center-style">客服热线：400-813-8888</span>
+    </div>
+    <a onclick="closePopup('see-rule');"><img src="images/Return.png" class="return-index"></a>
+</div>
+
+<div id='phone' class='width-height-100 outPopWindow-1'><!-- outPopWindow -->
+    <a onclick="closePopup('phone');">
+        <img src="images/Return.png" class="return-index">
+    </a>
+    <div class='phone-title'>输入你的手机号</div>
+    <div class='phone-title'>开启幸运奖励吧</div>
+    <input type="text" name="openid" id="openid" value="<?php echo $openid ?>" hidden>
+    <input type='number' id="mobile" placeholder='请输入正确的手机号，老用户请输入一贯账号' class='phone-input'>
+   <!--  <div class="input_tip">请确认你的手机号正确</div> -->
+    <button type='button' class='phone-btn' id="sure">确定</button>
+    <button type='button' class='phone-btn' id="get-luck" style='display:none'>查看幸运</button>
+    <div id="error-info" style="display:none;color:red;font-size:30px;margin-top: 40px;"></div>
+    <div id='ensure' class="activity width-height-100 outPopWindow-1">
+        <p>老客户请务必与注册一贯账户的手机号保持一致</p>
+        <p>手机号一旦输入无法修改</p>
+        <button class="sure_btn" id="sure_btn" onclick="cancelnum()">返回</button>
+        <button class="sure_btn" id="cancel" onclick="ensurenum()">确定</button>
+    </div>
+</div>
+
+<div class='new_window' hidden>
+    <img src='images/window_close.png' class='window_close'>
+    <span class='window_title'>您已获得奖励</span>
+    <span class='window_content'>请返回首页点击查看您获得奖励</span>
+    <div class="see_reward">查看幸运</div>
+</div>
+
+<div class='background-cover'></div>
+<div class='app_window' hidden>
+    <img class='app_close' src='images/window_close.png'>
+    <span class='app_title'>一贯是什么</span>
+    <div class='app_text'>
+        "一贯"是面向个人与企业的金融信息服务平台，依托恒丰银行完善的风控体系和业务运营能力，为用户提供专业、安全、便捷的金融信息服务。一贯平台精选了多种风险低、收益稳的理财产品，全力为客户打造便捷、实惠的用户体验。基于用户资金使用需求，平台目前主推"活期+"和"定期+"两个系列的金融产品。<br/><p></p>
+        "活期+"目前的代表产品“小金贯”基于零存活用的需求，为用户提供收益高、存取灵活的活期投资产品，支持多家银行卡在线投资。<br/><p></p>
+        "定期+"基于不同的投资周期、年化收益率，为用户提供高收益、多样化的投资方式，目前主要包括“周周盈”和节假日专享产品。本系列支持多家银行卡在线投资，并支持使用小金贯内资金投资。<br/><p></p>
+        "基金"产品根据客户不同的风险偏好，精挑细选，为您量身定制投资组合。
+    </div>
+</div>
+
+<div id="pano" style="width:100%;height:100%;">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+	<script>
+		embedpano({swf:"tour.swf", xml:"tour.xml", target:"pano", html5:"prefer", mobilescale:1.0, passQueryParameters:true});
+	</script>
+</div>
+</body>
+</html>
+<script>
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if(isAndroid){
+           $('.future-text').css('font-size','18px');
+           $('.future-text').css('line-height','24px');
+        }
+        var domain = '<?php echo DOMAIN ?>';
+        var userId = '<?php echo $openid ?>';
+        var has_get_reward = '<?php echo $has_get_reward ?>';
+        var reward = '<?php echo $reward ?>';
+        var is_new = 1;
+        var reg_url = '<?php echo REG_URL ?>';
+        var goreg_url = '<?php echo GOREG_URL ?>';
+        var shared_mobile = '<?php echo $shared_mobile ?>';
+
+        $.ajax({
+            url: "https://<?php echo API_URL ?>/netBankRequestOne.action?tranCode=WX2155&url="+encodeURIComponent(window.location.href)+"&srcChannel=<?php echo API_CHANNEL ?>",
+            success: function(data) {
+                wx.config({
+                    debug: false,
+                    appId: '<?php echo APPID ?>',
+                    timestamp: data.timestamp,
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage']
+                });
+                wx.ready(function () {
+                    wx.onMenuShareTimeline({
+                        title: '十二生肖闹元宵 一贯同你乐逍遥', // 分享标题
+                        link: 'https://'+domain+'/index.php?share_openid='+userId, // 分享链接
+                        imgUrl: 'https://'+domain+'/images/share.jpg', // 分享图标
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                    wx.onMenuShareAppMessage({
+                        title: '十二生肖闹元宵 一贯同你乐逍遥', // 分享标题
+                        desc: '正月十五花灯俏，十二生肖闹元宵。拨开云雾看自己，一贯同你乐逍遥', // 分享描述
+                        link: 'https://'+domain+'/index.php?share_openid='+userId, // 分享链接
+                        imgUrl: 'https://'+domain+'/images/share.jpg', // 分享图标
+                        type: '', // 分享类型,music、video或link，不填默认为link
+                        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                    wx.checkJsApi({
+                        jsApiList: ["checkJsApi"],
+                        success: function() {
+                            var ele = document.getElementById('bg_audio');
+                            ele.play();
+                        }
+                    })
+                });
+            },
+            dataType: "jsonp"
+        });
+
+        var load1 = false;
+        var load2 = false;
+
+        setTimeout(function() {
+            load2 = true;
+            removeLoading();
+        }, 4600);
+        var closePopup = function (name) {
+            console.log(name);
+            $('#'+name).hide();
+            $('.background-cover').hide();
+            $('.new_window').hide();
+            $('.app_window').hide();
+            $("#mobile").val("");
+            $('#error-info').html('');
+            $('#sure').show();
+            $('#get-luck').hide();
+            PostData(1);
+        };
+        var showSharePopup = function () {
+            var shareImg = document.createElement("img");
+            shareImg.src = "images/share.png";
+            shareImg.style.position = "absolute";
+            shareImg.style.top = '2px';
+            shareImg.style.right = '50px';
+            shareImg.style.zIndex = 3300;
+            shareImg.style.backgroundColor = "transparent";
+            var e = document.getElementById("invite");
+            var modal = document.createElement("div");
+            modal.className = "my-reveal-modal-bg";
+            e.appendChild(modal);
+            e.appendChild(shareImg);
+        };
+</script>

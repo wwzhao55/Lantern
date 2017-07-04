@@ -1,0 +1,218 @@
+﻿<krpano version="1.19" title="lantern"
+      logkey="false"
+        showerrors="false"
+        debugmode="false"
+        >
+
+    <include url="skin/vtourskin.xml" />
+    <skin_settings maps="false"
+                   maps_type="google"
+                   maps_bing_api_key=""
+                   maps_google_api_key=""
+                   maps_zoombuttons="false"
+                   gyro="true"
+                   webvr="false"
+                   littleplanetintro="false"
+                   title="true"
+                   thumbs="false"
+                   thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+                   thumbs_opened="false"
+                   thumbs_text="false"
+                   thumbs_dragging="true"
+                   thumbs_onhoverscrolling="false"
+                   thumbs_scrollbuttons="false"
+                   thumbs_scrollindicator="false"
+                   thumbs_loop="false"
+                   tooltips_buttons="false"
+                   tooltips_thumbs="false"
+                   tooltips_hotspots="false"
+                   tooltips_mapspots="false"
+                   deeplinking="false"
+                   loadscene_flags="MERGE"
+                   loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+                   loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+                   loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+                   loadingtext="loading..."
+                   layout_width="100%"
+                   layout_maxwidth="814"
+                   controlbar_width="-24"
+                   controlbar_height="40"
+                   controlbar_offset="20"
+                   controlbar_offset_closed="-40"
+                   controlbar_overlap.no-fractionalscaling="10"
+                   controlbar_overlap.fractionalscaling="0"
+                   design_skin_images="vtourskin.png"
+                   design_bgcolor="0x2D3E50"
+                   design_bgalpha="0.8"
+                   design_bgborder="0"
+                   design_bgroundedge="1"
+                   design_bgshadow="0 4 10 0x000000 0.3"
+                   design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+                   design_thumbborder_padding="2"
+                   design_thumbborder_bgroundedge="0"
+                   design_text_css="color:#FFFFFF; font-family:Arial;"
+                   design_text_shadow="1"
+    />
+
+    <plugin name="soundinterface"
+            url.flash="%SWFPATH%/plugins/soundinterface.swf"
+            url.html5="%SWFPATH%/plugins/soundinterface.js"
+            rootpath=""
+            preload="true"
+            keep="true"
+    />
+
+    <action name="removeLoading">
+        jscall(load1=true;removeLoading());
+    </action>
+
+    <action name="shakeKongming1">
+        tween(hotspot[kongminglight1].atv, -26, 10, default,shakeBackKongming1());
+    </action>
+    <action name="shakeKongming2">
+        tween(hotspot[kongminglight2].atv, -20, 10, default,shakeBackKongming2());
+    </action>
+    <action name="shakeKongming3">
+        tween(hotspot[kongminglight3].atv, -32, 10, default,shakeBackKongming3());
+    </action>
+    <action name="shakeBackKongming1">
+        tween(hotspot[kongminglight1].atv, -34, 10, default,shakeKongming1());
+    </action>
+
+    <action name="shakeBackKongming2">
+        tween(hotspot[kongminglight2].atv, -28, 10, default,shakeKongming2());
+    </action>
+
+    <action name="shakeBackKongming3">
+        tween(hotspot[kongminglight3].atv, -40, 10, default,shakeKongming3());
+    </action>
+
+    <events name="loading" keep="true"
+            onloadcomplete="delayedcall(0.25, removeLoading() );"
+    />
+
+    <!-- startup action - load the first scene -->
+    <action name="startup" autorun="onstart">
+        if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+        loadscene(get(startscene), null, MERGE);
+        if(startactions !== null, startactions() );
+    </action>
+
+    <action name="do_crop_animation">
+        registerattribute(xframes, calc((imagewidth / %1) BOR 0));
+        registerattribute(yframes, calc((imageheight / %2) BOR 0));
+        registerattribute(frames, calc(xframes * yframes));
+        registerattribute(frame, 0);
+
+        set(crop, '0|0|%1|%2');
+
+        setinterval(calc('crop_anim_' + name), calc(1.0 / %3),
+        if(loaded,
+        inc(frame);
+        if(frame GE frames, if(onlastframe !== null, onlastframe() ); set(frame,0); );
+        mod(xpos, frame, xframes);
+        div(ypos, frame, xframes);
+        Math.floor(ypos);
+        mul(xpos, %1); mul(ypos, %2);
+        calc(crop, xpos + '|' + ypos + '|%1|%2');
+        ,
+        clearinterval(calc('crop_anim_' + name));
+        );
+        );
+    </action>
+
+    <scene name="scene_lantern" title="lantern" onstart="" thumburl="panos/lantern.tiles/thumb.jpg" lat="" lng="" heading="">
+        <view hlookat="0" vlookat="0" fovtype="MFOV" fov="130" fovmin="130" fovmax="130" limitview="auto" />
+        <preview url="panos/lantern.tiles/preview.jpg" />
+        <image>
+            <cube url="panos/lantern.tiles/pano_%s.jpg" />
+            <cube url="panos/lantern.tiles/mobile/pano_%s.jpg" devices="mobile" />
+        </image>
+        <!-- place your scene hotspots here -->
+        <hotspot name="spot1" ath="-171.166" atv="-15.819" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/01.png"
+                 onclick="jscall(toggleEl('1'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot2" ath="143.205" atv="-24.617" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/02.png"
+                 onclick="lookto(143.205, -24.617);jscall(toggleEl('2'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot3" ath="-135.706" atv="5.554" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/03.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('3'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot4" ath="-49.002" atv="-6.670" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/04.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('4'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot5" ath="29.447" atv="-3.452" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/05.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('5'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot6" ath="119.734" atv="13.316" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/06.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('6'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot7" ath="1.625" atv="1.308" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/07.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('7'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot8" ath="-80.654" atv="-0.063" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/08.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('8'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot9" ath="70.874" atv="-3.607" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/09.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('9'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot10" ath="-25.823" atv="7.788" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/10.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('10'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot11" ath="94.160" atv="9.070" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/11.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('11'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="spot12" ath="-107.999" atv="18.216" edge="center" distorted="false" scale="0.4" zorder="2"
+                 url="images/12.png"
+                 onclick="looktohotspot(get(name));jscall(toggleEl('12'));tween(scale, 0.7, 0.5);wait(0.5);tween(scale, 0.4);"
+                 onover="tween(scale,0.5);"
+                 onout="tween(scale,0.4);" />
+        <hotspot name="people1" ath="-58.860" atv="28.820" edge="center" distorted="true" scale="0.3"
+                 url="images/people_left.png" />
+        <hotspot name="people2" ath="26.269" atv="36.687" edge="center" distorted="true" scale="0.3"
+                 url="images/people_middle.png" />
+        <hotspot name="people3" ath="148.714" atv="34.900" edge="center" distorted="true" scale="0.3"
+                 url="images/people_right.png" />
+        <hotspot name="lantern1" ath="92.679" atv="-46.184" edge="center" distorted="true" scale="0.4" url="images/lantern1.png" />
+        <hotspot name="lantern2" ath="-80.096" atv="-62.997" edge="center" distorted="true" scale="0.4" url="images/lantern2.png" />
+        <hotspot name="kongminglight1" ath="-99.135" atv="-34" edge="center" distorted="false" scale="0.2"
+                 onloaded="shakeKongming1();"
+                 onclick="jscall(toggleEl('Star'));"
+                 url="images/kongminglight.png" />
+        <hotspot name="kongminglight2" ath="118.300" atv="-28" edge="center" distorted="false" scale="0.2"
+                 onloaded="shakeKongming2();"
+                 onclick="jscall(toggleEl('Star'));"
+                 url="images/kongminglight.png" />
+        <hotspot name="kongminglight3" ath="165.286" atv="-40" edge="center" distorted="false" scale="0.2"
+                 onloaded="shakeKongming3();"
+                 onclick="jscall(toggleEl('Star'));"
+                 url="images/kongminglight.png" />
+        <layer name="custom_btns" keep="true" type="container" align="righttop" width="78" height="394" x="20" y="30" zorder="1">
+            <layer name="btns_rules" align="top" url="%CURRENTXML%/images/rules.png" onclick="jscall(toggleEl('Rules'));" />
+            <layer name="btns_reward" align="center" url="%CURRENTXML%/images/reward.png" onclick="jscall(toggleEl('Reward'));" />
+            <layer name="btns_music" align="bottom" url="%CURRENTXML%/images/music_on.png" onclick="switch(url,'%CURRENTXML%/images/music_on.png','%CURRENTXML%/images/music_off.png');jscall(toggleMusic());jscall(PostData(16));" />
+        </layer>
+    </scene>
+</krpano>

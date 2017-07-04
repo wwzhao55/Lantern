@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我已预见你一贯的未来</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="750,user-scalable=no">
+	<!-- <link rel="stylesheet" type="text/css" href="../css/tour.css"> -->
+	<link rel="stylesheet" type="text/css" href="css/noactivity.css">
+	<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="js/jquery-1.4.4.min.js"></script>
+</head>
+<body>
+	<div id="reward" class="width-height-100" >
+		<div id="reward-content">
+			<p id="reward-title">查看奖励</p>
+			<!-- <p>你已在本活动中已获得<span id="money"></span>元现金奖励</p> -->
+			<p style="margin: 0 auto;width: 75%;text-align: center;font-size:26px;margin-bottom: 62px;color: #c8a355;line-height: 40px;" id="first_condition">您已在本活动中已获得<span id="money"></span>元京东E卡或等值奖金<!-- <span id="thirdmoney"></span> --></p>
+			<!-- <p style="margin: 0 auto;width: 75%;text-align: justify;margin-bottom: 20px;display: none;" id="second_condition">领奖条件：于10月28日之前注册并绑定一张银行卡，并保持连续2个自然日投资余额皆不低于1000元，即可获得<span id="anothermoney"></span>元奖金。奖金将于11月20日之前进入你的一贯账户（相当于<span id="investment"></span>元本金投资“小金贯”的3日收益）。</p>
+			<p style="margin: 0 auto;width: 75%;text-align: justify;margin-bottom: 20px;">该收益按照浮动收益计算，不作为投资依据，详情参见一贯APP产品介绍。</p> -->
+			<img src="images/qrcode.png" class='img2'/>
+			<p style='font-size: 26px;color: #c8a355;line-height: 40px'>长按识别二维码进入微信公众号或下载一贯APP吧。</p>
+		</div>
+	</div>
+	<script>
+		var domain = '<?php echo DOMAIN ?>';
+		var userId = '<?php echo $openid ?>';
+		$.ajax({
+			url: "https://<?php echo API_URL ?>/netBankRequestOne.action?tranCode=WX2155&url="+encodeURIComponent(window.location.href)+"&srcChannel=<?php echo API_CHANNEL ?>",
+			success: function(data) {
+				wx.config({
+					debug: false,
+					appId: '<?php echo APPID ?>',
+					timestamp: data.timestamp,
+					nonceStr: data.nonceStr,
+					signature: data.signature,
+					jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+				});
+				wx.ready(function () {
+					wx.onMenuShareTimeline({
+						title: '十二生肖闹元宵 一贯同你乐逍遥', // 分享标题
+						link: 'https://'+domain+'/index.php?share_openid='+userId, // 分享链接
+						imgUrl: 'https://'+domain+'/images/share.jpg', // 分享图标
+						success: function () {
+							// 用户确认分享后执行的回调函数
+						},
+						cancel: function () {
+							// 用户取消分享后执行的回调函数
+						}
+					});
+					wx.onMenuShareAppMessage({
+						title: '十二生肖闹元宵 一贯同你乐逍遥', // 分享标题
+						desc: '正月十五花灯俏，十二生肖闹元宵。拨开云雾看自己，一贯同你乐逍遥', // 分享描述
+						link: 'https://'+domain+'/index.php?share_openid='+userId, // 分享链接
+						imgUrl: 'https://'+domain+'/images/share.jpg', // 分享图标
+						type: '', // 分享类型,music、video或link，不填默认为link
+						dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+						success: function () {
+							// 用户确认分享后执行的回调函数
+						},
+						cancel: function () {
+							// 用户取消分享后执行的回调函数
+						}
+					});
+				});
+			},
+			dataType: "jsonp"
+		});
+		var cash = <?php echo $cash ?>;
+		var e = document.getElementById("money");
+		var f = document.getElementById("investment");
+		var g = document.getElementById("anothermoney");
+		var h = document.getElementById("thirdmoney");
+		switch (cash) {
+			case 1:
+				e.innerHTML = 30;
+				break;
+			case 2:
+				e.innerHTML = 60;
+				break;
+			case 3:
+				e.innerHTML = 90;
+				break;
+		}
+	</script>
+</body>
+</html>
